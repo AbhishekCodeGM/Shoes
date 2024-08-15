@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e0f7fa; /* Light cyan background */
+            color: #00796b; /* Dark cyan text color */
+            margin: 0;
+            padding: 0;
+        }
+
+        nav {
+            background-color: #004d40; /* Dark cyan background for navigation */
+            color: #ffffff; /* White text color */
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav .logo h1 {
+            font-size: 1.5rem;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li {
+            margin: 0 1rem;
+        }
+
+        nav ul li a {
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+        .icons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .icons i {
+            color: #ffffff;
+            font-size: 1.2rem;
+        }
+
+        section {
+            padding: 2rem;
+        }
+
+        h1 {
+            color: #004d40; /* Dark cyan */
+            text-align: center;
+        }
+
+        .cart {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 2rem;
+        }
+
+        table, th, td {
+            border: 1px solid #004d40;
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+        }
+
+        th {
+            background-color: #00796b; /* Darker cyan for header */
+            color: #ffffff;
+        }
+
+        td {
+            background-color: #ffffff; /* White background for rows */
+        }
+
+        .cart-item img {
+            width: 50px;
+            height: auto;
+            margin-right: 1rem;
+        }
+
+        .cart-item-details {
+            display: flex;
+            align-items: center;
+        }
+
+        .cart-summary {
+            text-align: right;
+            margin-top: 2rem;
+        }
+
+        .cart-summary h2 {
+            color: #004d40;
+        }
+
+        .checkout {
+            background-color: #00796b;
+            color: #ffffff;
+            border: none;
+            padding: 0.5rem 1rem;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        .checkout:hover {
+            background-color: #004d40;
+        }
+
+        footer {
+            background-color: #004d40;
+            color: #ffffff;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        footer h1 {
+            margin: 0;
+        }
+
+        footer ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        footer ul li {
+            display: inline;
+            margin: 0 0.5rem;
+        }
+
+        footer ul li a {
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+        footer .social_icon {
+            margin-top: 1rem;
+        }
+
+        footer .social_icon i {
+            color: #ffffff;
+            font-size: 1.2rem;
+            margin: 0 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <section>
+        <nav>
+            <div class="logo">
+                <h1>Shoe<span>s</span></h1>
+            </div>
+        
+            <ul>
+                <li><a href="index.html#Home">Home</a></li>
+                <li><a href="index.html#Products">Products</a></li>
+                <li><a href="#About">About</a></li>
+                <li><a href="#Review">Review</a></li>
+                <li><a href="#Servises">Servises</a></li>
+                <li><a href="login.html">Login</a></li> 
+                <li><button id="logout-button">Logout</button></li>
+            </ul>
+        
+            <div class="icons">
+                <i class="fa-solid fa-heart"></i>
+                <i class="fa-solid fa-cart-shopping" id="cart-icon">
+                    <span class="cart-count" id="cart-count">0</span>
+                </i>
+                <i class="fa-solid fa-user"></i>
+            </div>
+        </nav>
+        <h1>Your Cart</h1>
+
+        <div class="cart">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="cart-items">
+                    <!-- Cart items will be injected here by JavaScript -->
+                </tbody>
+            </table>
+
+            <div class="cart-summary">
+                <h2>Total: ₹<span id="total-price">0</span></h2>
+                <button class="checkout">Proceed to Checkout</button>
+            </div>
+        </div>
+    </section>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const cartItemsContainer = document.getElementById('cart-items');
+            const totalPriceElement = document.getElementById('total-price');
+    
+            function updateCart() {
+                const cart = JSON.parse(localStorage.getItem('cart')) || [];
+                cartItemsContainer.innerHTML = '';
+                let total = 0;
+    
+                cart.forEach((item, index) => {
+                    total += item.price * item.quantity;
+                    cartItemsContainer.innerHTML += `
+                        <tr>
+                            <td><img src="${item.image}" alt="${item.name}"> ${item.name}</td>
+                            <td class="price">₹${item.price}</td>
+                            <td><input type="number" value="${item.quantity}" min="1" class="quantity" data-index="${index}"></td>
+                            <td><button class="remove-item" data-index="${index}">Remove</button></td>
+                        </tr>
+                    `;
+                });
+    
+                totalPriceElement.textContent = total;
+                addEventListeners();
+            }
+    
+            function addEventListeners() {
+                const quantities = document.querySelectorAll('.quantity');
+                const removeButtons = document.querySelectorAll('.remove-item');
+    
+                quantities.forEach(quantity => {
+                    quantity.addEventListener('input', function() {
+                        const index = this.dataset.index;
+                        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+                        const newQuantity = parseInt(this.value);
+                        cart[index].quantity = newQuantity;
+                        localStorage.setItem('cart', JSON.stringify(cart));
+                        updateCart();
+                    });
+                });
+    
+                removeButtons.forEach(button => {
+                    button.addEventListener('click', function() {
+                        const index = this.dataset.index;
+                        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+                        cart.splice(index, 1);
+                        localStorage.setItem('cart', JSON.stringify(cart));
+                        updateCart();
+                    });
+                });
+            }
+    
+            updateCart();
+        });
+    
+    </script>
+    <!--Footer-->
+    <footer>
+        <h1>Shoe<span>s</span></h1>
+        <ul>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Products</a></li>
+            <li><a href="#">Servises</a></li>
+            <li><a href="#">Review</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="login.html">Login</a></li>
+        </ul>
+        <div class="social_icon">
+            <i class="fa-brands fa-facebook-f"></i>
+            <i class="fa-brands fa-twitter"></i>
+            <i class="fa-brands fa-instagram"></i>
+            <i class="fa-brands fa-linkedin-in"></i>
+        </div>
+    </footer>
+
+</body>
+</html>
+

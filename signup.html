@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up Page</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Additional CSS for the sign-up page */
+        .signup-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(to right, #00bfae, #00796b);
+        }
+
+        .signup-form {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.3);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .signup-form h2 {
+            margin-bottom: 20px;
+            color: #00796b;
+            font-size: 24px;
+            text-align: center;
+        }
+
+        .signup-form .input-group {
+            margin-bottom: 15px;
+        }
+
+        .signup-form .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #00796b;
+        }
+
+        .signup-form .input-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .signup-form .input-group input:focus {
+            border-color: #00bfae;
+            outline: none;
+        }
+
+        .signup-form .button-group {
+            text-align: center;
+        }
+
+        .signup-form .button-group button {
+            background: linear-gradient(to right, #00bfae, #00796b);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .signup-form .button-group button:hover {
+            background: linear-gradient(to right, #00796b, #00bfae);
+        }
+
+        .signup-form .footer {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .signup-form .footer a {
+            color: #00796b;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .signup-form .footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="signup-container">
+        <div class="signup-form">
+            <h2>Sign Up</h2>
+            <form id="signup-form">
+                <div class="input-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="input-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="input-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <div class="button-group">
+                    <button type="submit">Sign Up</button>
+                </div>
+                <div class="footer">
+                    <p>Already have an account? <a href="login.html">Login</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="signup.js"></script>
+    <script>
+        // Store the current page URL in localStorage before showing the sign-up page
+        if (!localStorage.getItem('returnUrl')) {
+            localStorage.setItem('returnUrl', document.referrer);
+        }
+    </script>
+</body>
+</html>

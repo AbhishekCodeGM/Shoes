@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Additional CSS for the login page */
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(to right, #00bfae, #00796b);
+        }
+
+        .login-form {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.3);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .login-form h2 {
+            margin-bottom: 20px;
+            color: #00796b;
+            font-size: 24px;
+            text-align: center;
+        }
+
+        .login-form .input-group {
+            margin-bottom: 15px;
+        }
+
+        .login-form .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #00796b;
+        }
+
+        .login-form .input-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .login-form .input-group input:focus {
+            border-color: #00bfae;
+            outline: none;
+        }
+
+        .login-form .button-group {
+            text-align: center;
+        }
+
+        .login-form .button-group button {
+            background: linear-gradient(to right, #00bfae, #00796b);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .login-form .button-group button:hover {
+            background: linear-gradient(to right, #00796b, #00bfae);
+        }
+
+        .login-form .footer {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .login-form .footer a {
+            color: #00796b;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .login-form .footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-form">
+            <h2>Login</h2>
+            <form id="login-form">
+                <div class="input-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <div class="button-group">
+                    <button type="submit">Login</button>
+                </div>
+                <div class="footer">
+                    <p>Don't have an account? <a href="signup.html">Sign Up</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="login.js"></script>
+</body>
+</body>
+</html>
+
+
